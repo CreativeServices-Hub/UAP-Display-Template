@@ -17,28 +17,22 @@
     html, body { margin:0; background:var(--bg); color:var(--text);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
 
-    /* Header (subtle divider, tighter logo, hero title) */
+    /* Header */
     header { background:#fff; border-bottom:1px solid #e5e7eb; padding:24px 36px 18px; text-align:left; }
     .brandline { display:flex; align-items:center; justify-content:flex-start; gap:14px; flex-wrap:wrap; }
     .brandline img.logo-lockup { height:90px; width:auto; display:block; }
     .brandline h1 { margin:0; font-family:"Century Gothic","AppleGothic",sans-serif; font-size:56px; line-height:1.1; letter-spacing:.2px; font-weight:800; }
     .subline { margin:6px 0 0; color:var(--muted); font-size:15px; }
 
-    /* Quick nav */
-    nav.quick { padding:10px 36px 0; font-size:14px; color:var(--muted); }
-    nav.quick a { color:inherit; text-decoration:none; border-bottom:1px solid transparent; padding-bottom:1px; }
-    nav.quick a:hover { border-color:currentColor; }
-
-    /* Page + column */
+    /* Page layout */
     .page { padding:0 36px 80px; }
     .col { display:flex; flex-direction:column; gap:24px; width:max-content; }
 
     .stack { display:flex; flex-direction:column; gap:16px; }
     .card { width:max-content; }
-    .label { font-size:12px; color:var(--muted); margin:8px 0 -8px; }
     iframe { display:block; border:0; overflow:hidden; background:#0a0a0a; }
 
-    /* Buttons (bolder + tactile) */
+    /* Buttons */
     .btn {
       appearance:none; border:2px solid #000; background:#000; color:#fff;
       border-radius:999px; padding:10px 16px; font-size:13px; text-decoration:none; cursor:pointer;
@@ -48,14 +42,11 @@
     .btn:active { transform:translateY(0); }
 
     /* Button rows + separators */
-    .open-row { display:block; margin:30px 0; }         /* 30px above/below */
-    .sep { height:3px; background:#111; margin:34px 0; opacity:.9; } /* 3px line with rhythm */
+    .open-row { display:block; margin:30px 0; }
+    .sep { height:3px; background:#111; margin:34px 0; opacity:.9; }
 
-    /* Fixed widths so lines match unit widths */
-    .w-1280 { width:1280px; }
-    .w-970  { width:970px; }
-    .w-728  { width:728px; }
-    .w-320  { width:320px; }
+    /* Fixed widths */
+    .w-1280 { width:1280px; } .w-970 { width:970px; } .w-728 { width:728px; } .w-320 { width:320px; }
 
     /* Footer */
     .powered-footer { margin-top:80px; display:flex; align-items:center; justify-content:flex-start; gap:12px; opacity:.9; }
@@ -72,20 +63,6 @@
     <p class="subline">Open to view any unit alone in a new tab.</p>
   </header>
 
-  <!-- Quick jump links -->
-  <nav class="quick">
-    Jump to:
-    <a href="#s1280x418">1280×418</a> ·
-    <a href="#s1280x100">1280×100</a> ·
-    <a href="#s970x250">970×250</a> ·
-    <a href="#s970x66">970×66</a> ·
-    <a href="#s728x250">728×250</a> ·
-    <a href="#s728x90">728×90</a> ·
-    <a href="#s320x250">320×250</a> ·
-    <a href="#s320x50">320×50</a> ·
-    <a href="#s300x250">300×250</a>
-  </nav>
-
   <div class="page">
     <div class="col" id="units"><!-- JS injects units here --></div>
 
@@ -95,7 +72,7 @@
     </div>
   </div>
 
-  <!-- Dynamic title + robust loader with cache-busting -->
+  <!-- Dynamic title + loader -->
   <script>
   (function setTitle() {
     const params = new URLSearchParams(location.search);
@@ -107,7 +84,8 @@
 
     const parts = location.pathname.split('/').filter(Boolean);
     let repo = '';
-    if (location.hostname.endsWith('.github.io')) { repo = parts[0] || ''; } else { repo = parts[1] || parts[0] || ''; }
+    if (location.hostname.endsWith('.github.io')) repo = parts[0] || '';
+    else repo = parts[1] || parts[0] || '';
     if (repo) {
       const cleaned = repo.replace(/^UAP[-–]\s*/i,'')
                           .replace(/^UAP-Display[-–]\s*/i,'')
@@ -117,24 +95,18 @@
     }
   })();
 
-  // Units in agreed order; 'sep' true only for second item in each pair (and 320x50)
   const UNITS = [
-    { id:'s1280x418', dir:'1280x418', w:1280, h:418, label:'1280×418', sep:false },
-    { id:'s1280x100', dir:'1280x100', w:1280, h:100, label:'1280×100', sep:true  },
-
-    { id:'s970x250',  dir:'970x250',  w:970,  h:250, label:'970×250',  sep:false },
-    { id:'s970x66',   dir:'970x66',   w:970,  h:66,  label:'970×66',   sep:true  },
-
-    { id:'s728x250',  dir:'728x250',  w:728,  h:250, label:'728×250',  sep:false },
-    { id:'s728x90',   dir:'728x90',   w:728,  h:90,  label:'728×90',   sep:true  },
-
-    { id:'s320x250',  dir:'320x250',  w:320,  h:250, label:'320×250',  sep:false },
-    { id:'s320x50',   dir:'320x50',   w:320,  h:50,  label:'320×50',   sep:true  },
-
-    { id:'s300x250',  dir:'300x250',  w:300,  h:250, label:'300×250',  sep:false }
+    { dir:'1280x418', w:1280, h:418, label:'1280×418', sep:false },
+    { dir:'1280x100', w:1280, h:100, label:'1280×100', sep:true  },
+    { dir:'970x250',  w:970,  h:250, label:'970×250',  sep:false },
+    { dir:'970x66',   w:970,  h:66,  label:'970×66',   sep:true  },
+    { dir:'728x250',  w:728,  h:250, label:'728×250',  sep:false },
+    { dir:'728x90',   w:728,  h:90,  label:'728×90',   sep:true  },
+    { dir:'320x250',  w:320,  h:250, label:'320×250',  sep:false },
+    { dir:'320x50',   w:320,  h:50,  label:'320×50',   sep:true  },
+    { dir:'300x250',  w:300,  h:250, label:'300×250',  sep:false }
   ];
 
-  // Only accept <dir>/<dir>.html or i<dir>.html (avoid stray index.html)
   function candidateFiles(dir) {
     return [
       `uaps/${dir}/${dir}.html`,
@@ -161,26 +133,15 @@
     const root = document.getElementById('units');
     const parts = location.pathname.split('/').filter(Boolean);
     const repoKey = (location.hostname.endsWith('.github.io') ? (parts[0]||'') : (parts[1]||parts[0]||''));
-    const v = `${repoKey}-${Date.now()}`; // cache-buster for page session
+    const v = `${repoKey}-${Date.now()}`;
 
     for (const u of UNITS) {
       const stack = document.createElement('div');
       stack.className = 'stack';
-      stack.id = u.id;
-
       const card = document.createElement('div');
       card.className = 'card';
 
-      // Label above unit for clarity
-      const label = document.createElement('div');
-      label.className = 'label';
-      label.textContent = u.label;
-      card.appendChild(label);
-
-      // Resolve creative file
       const srcBase = await pickFirstExisting(candidateFiles(u.dir));
-
-      // Load HTML with no-store, inject <base href="...?..."> so all relative assets use cache-busted URL
       const iframe = document.createElement('iframe');
       iframe.width = u.w; iframe.height = u.h; iframe.scrolling = 'no';
 
@@ -190,22 +151,10 @@
           const html = await res.text();
           const base = `<base href="${srcBase}?v=${v}">`;
           iframe.srcdoc = `${base}\n${html}`;
-        } catch {
-          iframe.src = `${srcBase}?v=${v}`;
-        }
+        } catch { iframe.src = `${srcBase}?v=${v}`; }
       }
       card.appendChild(iframe);
 
-      // Fallback visual if something truly fails to load after a moment
-      setTimeout(() => {
-        try {
-          if (!iframe.contentWindow || !iframe.contentWindow.document) {
-            iframe.style.background = "#f3f4f6";
-          }
-        } catch {}
-      }, 2000);
-
-      // Open button
       const openRow = document.createElement('div');
       openRow.className = `open-row ${widthClass(u.w)}`;
       const a = document.createElement('a');
@@ -213,11 +162,10 @@
       a.textContent = `Open ${u.label}`;
       a.href = `${(srcBase || candidateFiles(u.dir)[0])}?v=${v}`;
       openRow.appendChild(a);
-
       card.appendChild(openRow);
+
       stack.appendChild(card);
 
-      // Separator only for second item in each pair (and 320×50)
       if (u.sep) {
         const sep = document.createElement('div');
         sep.className = `sep ${widthClass(u.w)}`;
