@@ -7,19 +7,17 @@
   <style>
     :root { --bg:#edeef0; --text:#0b0c10; --muted:#60646b; --gap:24px; }
     * { box-sizing:border-box; }
-    html, body {
-      margin:0; background:var(--bg); color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    }
+    html, body { margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
 
-    /* Header (left aligned) */
+    /* Header */
     header { padding:28px var(--gap) 18px; text-align:left; }
     .brandline { display:flex; align-items:center; justify-content:flex-start; gap:18px; flex-wrap:wrap; }
     .brandline img.logo-lockup { height:120px; width:auto; display:block; }
     .brandline h1 { margin:0; font-size:48px; line-height:1.1; font-weight:800; letter-spacing:.2px; }
     .subline { margin:10px 0 0; color:var(--muted); font-size:16px; text-align:left; }
 
-    /* Layout (single column, true sizes) */
+    /* Layout */
     .page { padding:0 var(--gap) 60px; }
     .col { display:flex; flex-direction:column; gap:24px; width:max-content; }
     .stack { display:flex; flex-direction:column; gap:16px; }
@@ -36,19 +34,13 @@
     .btn:active { transform:translateY(1px); }
 
     /* Button rows + separators */
-    .open-row { display:block; margin:30px 0; }       /* 30px buffer above & below button rows */
-    .sep { height:3px; background:#000; margin:30px 0; } /* 3px line, same vertical spacing as buttons */
+    .open-row { display:block; margin:30px 0; }            /* 30px above & below buttons */
+    .sep { height:3px; background:#000; margin:30px 0; }   /* 3px line, same spacing as buttons */
 
-    /* Fixed widths so lines match the smaller unit widths */
-    .w-1280 { width:1280px; }
-    .w-970  { width:970px;  }
-    .w-728  { width:728px;  }
-    .w-320  { width:320px;  }
+    .w-1280 { width:1280px; } .w-970 { width:970px; } .w-728 { width:728px; } .w-320 { width:320px; }
 
-    /* Powered by (left aligned) */
-    .powered-footer {
-      margin-top:60px; display:flex; align-items:center; justify-content:flex-start; gap:10px; width:100%;
-    }
+    /* Powered by */
+    .powered-footer { margin-top:60px; display:flex; align-items:center; justify-content:flex-start; gap:10px; width:100%; }
     .powered-footer span { color:var(--muted); font-size:18px; font-weight:500; }
     .powered-footer img.brandworks { height:180px; width:auto; display:block; }
   </style>
@@ -63,123 +55,121 @@
   </header>
 
   <div class="page">
-    <div class="col">
+    <div class="col" id="units">
+      <!-- JS will build the 9 units below in this exact order -->
+    </div>
 
-      <!-- 1280 pair -->
-      <div class="stack">
-        <div class="card">
-          <iframe src="uaps/1280x418/1280x418.html" width="1280" height="418" scrolling="no"></iframe>
-          <div class="open-row w-1280">
-            <a class="btn" href="uaps/1280x418/1280x418.html" target="_blank" rel="noopener">Open 1280×418</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <iframe src="uaps/1280x100/1280x100.html" width="1280" height="100" scrolling="no"></iframe>
-          <div class="open-row w-1280">
-            <a class="btn" href="uaps/1280x100/1280x100.html" target="_blank" rel="noopener">Open 1280×100</a>
-          </div>
-          <!-- separator only after smaller unit in the pair -->
-          <div class="sep w-1280"></div>
-        </div>
-      </div>
-
-      <!-- 970 pair -->
-      <div class="stack">
-        <div class="card">
-          <iframe src="uaps/970x250/970x250.html" width="970" height="250" scrolling="no"></iframe>
-          <div class="open-row w-970">
-            <a class="btn" href="uaps/970x250/970x250.html" target="_blank" rel="noopener">Open 970×250</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <iframe src="uaps/970x66/970x66.html" width="970" height="66" scrolling="no"></iframe>
-          <div class="open-row w-970">
-            <a class="btn" href="uaps/970x66/970x66.html" target="_blank" rel="noopener">Open 970×66</a>
-          </div>
-          <div class="sep w-970"></div>
-        </div>
-      </div>
-
-      <!-- 728 pair -->
-      <div class="stack">
-        <div class="card">
-          <iframe src="uaps/728x250/728x250.html" width="728" height="250" scrolling="no"></iframe>
-          <div class="open-row w-728">
-            <a class="btn" href="uaps/728x250/728x250.html" target="_blank" rel="noopener">Open 728×250</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <iframe src="uaps/728x90/728x90.html" width="728" height="90" scrolling="no"></iframe>
-          <div class="open-row w-728">
-            <a class="btn" href="uaps/728x90/728x90.html" target="_blank" rel="noopener">Open 728×90</a>
-          </div>
-          <div class="sep w-728"></div>
-        </div>
-      </div>
-
-      <!-- 320 pair -->
-      <div class="stack">
-        <div class="card">
-          <iframe src="uaps/320x250/320x250.html" width="320" height="250" scrolling="no"></iframe>
-          <div class="open-row w-320">
-            <a class="btn" href="uaps/320x250/320x250.html" target="_blank" rel="noopener">Open 320×250</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <iframe src="uaps/320x50/320x50.html" width="320" height="50" scrolling="no"></iframe>
-          <div class="open-row w-320">
-            <a class="btn" href="uaps/320x50/320x50.html" target="_blank" rel="noopener">Open 320×50</a>
-          </div>
-          <div class="sep w-320"></div>
-        </div>
-      </div>
-
-      <!-- 300x250 (single) -->
-      <div class="card">
-        <iframe src="uaps/300x250/300x250.html" width="300" height="250" scrolling="no"></iframe>
-        <div class="open-row" style="width:300px;">
-          <a class="btn" href="uaps/300x250/300x250.html" target="_blank" rel="noopener">Open 300×250</a>
-        </div>
-      </div>
-
-      <!-- Powered by -->
-      <div class="powered-footer">
-        <span>powered by</span>
-        <img class="brandworks" src="brandworks.png" alt="Brandworks" />
-      </div>
-
+    <!-- Powered by -->
+    <div class="powered-footer">
+      <span>powered by</span>
+      <img class="brandworks" src="brandworks.png" alt="Brandworks" />
     </div>
   </div>
 
-  <!-- Dynamic title script: uses ?title=... or repo name -->
+  <!-- Dynamic title + robust loader -->
   <script>
-  (function() {
+  (function setTitle() {
     const params = new URLSearchParams(location.search);
     const fromQuery = params.get('title');
     const h1 = document.getElementById('dynamicTitle');
     if (!h1) return;
-
-    if (fromQuery) {
-      const t = decodeURIComponent(fromQuery);
-      h1.textContent = t; document.title = t; return;
-    }
-
-    // GitHub Pages path: /<owner>/<repo>/
+    if (fromQuery) { const t = decodeURIComponent(fromQuery); h1.textContent = t; document.title = t; return; }
     const parts = location.pathname.split('/').filter(Boolean);
     const repo = parts[1] || '';
     if (repo) {
-      const cleaned = repo
-        .replace(/^UAP[-–]\s*/i, '')
-        .replace(/^UAP-Display[-–]\s*/i, '')
-        .replace(/[-_]/g, ' ')
-        .trim();
+      const cleaned = repo.replace(/^UAP[-–]\s*/i, '')
+                          .replace(/^UAP-Display[-–]\s*/i, '')
+                          .replace(/[-_]/g, ' ')
+                          .trim();
       if (cleaned) { h1.textContent = cleaned; document.title = cleaned; }
     }
   })();
+
+  // Define all units, exact order and widths/heights
+  const UNITS = [
+    { dir:'1280x418', w:1280, h:418, label:'1280×418', sep:false },
+    { dir:'1280x100', w:1280, h:100, label:'1280×100', sep:true  },
+
+    { dir:'970x250',  w:970,  h:250, label:'970×250',  sep:false },
+    { dir:'970x66',   w:970,  h:66,  label:'970×66',   sep:true  },
+
+    { dir:'728x250',  w:728,  h:250, label:'728×250',  sep:false },
+    { dir:'728x90',   w:728,  h:90,  label:'728×90',   sep:true  },
+
+    { dir:'320x250',  w:320,  h:250, label:'320×250',  sep:false },
+    { dir:'320x50',   w:320,  h:50,  label:'320×50',   sep:true  },
+
+    { dir:'300x250',  w:300,  h:250, label:'300×250',  sep:false }
+  ];
+
+  // For each unit, we try these possible file names, in order:
+  function candidateFiles(dir) {
+    return [
+      `uaps/${dir}/${dir}.html`,          // 1280x100/1280x100.html
+      `uaps/${dir}/index.html`,           // 1280x100/index.html
+      `uaps/${dir}/i${dir}.html`          // 1280x100/i1280x100.html (common alt)
+    ];
+  }
+
+  async function pickFirstExisting(urls) {
+    for (const url of urls) {
+      try {
+        const r = await fetch(url, { method:'HEAD', cache:'no-store' });
+        if (r.ok) return url;
+      } catch (_) {}
+    }
+    return null;
+  }
+
+  function widthClass(w) {
+    if (w === 1280) return 'w-1280';
+    if (w === 970)  return 'w-970';
+    if (w === 728)  return 'w-728';
+    if (w === 320)  return 'w-320';
+    return '';
+  }
+
+  async function build() {
+    const root = document.getElementById('units');
+    for (const u of UNITS) {
+      const stack = document.createElement('div');
+      stack.className = 'stack';
+
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const iframe = document.createElement('iframe');
+      iframe.width = u.w; iframe.height = u.h; iframe.scrolling = 'no';
+      // Resolve correct file for the iframe
+      const src = await pickFirstExisting(candidateFiles(u.dir));
+      if (src) iframe.src = src;
+
+      card.appendChild(iframe);
+
+      // Button row
+      const openRow = document.createElement('div');
+      openRow.className = `open-row ${widthClass(u.w)}`;
+      const a = document.createElement('a');
+      a.className = 'btn';
+      a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = `Open ${u.label}`;
+      a.href = src || candidateFiles(u.dir)[0]; // fall back to first candidate
+      openRow.appendChild(a);
+      card.appendChild(openRow);
+
+      stack.appendChild(card);
+
+      // Separator only under the "smaller" unit in each pair
+      if (u.sep) {
+        const sep = document.createElement('div');
+        sep.className = `sep ${widthClass(u.w)}`;
+        stack.appendChild(sep);
+      }
+
+      root.appendChild(stack);
+    }
+  }
+  build();
   </script>
 </body>
 </html>
