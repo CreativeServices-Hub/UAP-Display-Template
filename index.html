@@ -14,23 +14,31 @@
   <style>
     :root { --bg:#edeef0; --text:#0b0c10; --muted:#6b7280; --gap:24px; }
     * { box-sizing:border-box; }
-    html, body { margin:0; background:var(--bg); color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+    html, body {
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
 
     /* Header */
-    header { background:#fff; border-bottom:1px solid #e5e7eb; padding:24px 36px 18px; text-align:left; }
+    header {
+      background:#fff; border-bottom:1px solid #e5e7eb; padding:24px 36px 18px; text-align:left;
+    }
     .brandline { display:flex; align-items:center; justify-content:flex-start; gap:14px; flex-wrap:wrap; }
     .brandline img.logo-lockup { height:90px; width:auto; display:block; }
-    .brandline h1 { margin:0; font-family:"Century Gothic","AppleGothic",sans-serif; font-size:56px; line-height:1.1; letter-spacing:.2px; font-weight:800; }
+    .brandline h1 {
+      margin:0; font-family:"Century Gothic","AppleGothic",sans-serif;
+      font-size:56px; line-height:1.1; letter-spacing:.2px; font-weight:800;
+    }
     .subline { margin:6px 0 0; color:var(--muted); font-size:15px; }
 
     /* Page layout */
     .page { padding:0 36px 80px; }
     .col { display:flex; flex-direction:column; gap:24px; width:max-content; }
-
     .stack { display:flex; flex-direction:column; gap:16px; }
     .card { width:max-content; }
-    iframe { display:block; border:0; overflow:hidden; background:#0a0a0a; }
+
+    /* Key fix: do NOT force a background; let creative show through */
+    iframe { display:block; border:0; overflow:hidden; background:transparent; }
 
     /* Buttons */
     .btn {
@@ -42,14 +50,19 @@
     .btn:active { transform:translateY(0); }
 
     /* Button rows + separators */
-    .open-row { display:block; margin:30px 0; }
+    .open-row { display:block; margin:30px 0; }   /* 30px above/below */
     .sep { height:3px; background:#111; margin:34px 0; opacity:.9; }
 
-    /* Fixed widths */
-    .w-1280 { width:1280px; } .w-970 { width:970px; } .w-728 { width:728px; } .w-320 { width:320px; }
+    /* Fixed widths for separator line lengths */
+    .w-1280 { width:1280px; }
+    .w-970  { width:970px; }
+    .w-728  { width:728px; }
+    .w-320  { width:320px; }
 
     /* Footer */
-    .powered-footer { margin-top:80px; display:flex; align-items:center; justify-content:flex-start; gap:12px; opacity:.9; }
+    .powered-footer {
+      margin-top:80px; display:flex; align-items:center; justify-content:flex-start; gap:12px; opacity:.9;
+    }
     .powered-footer span { color:var(--muted); font-size:16px; font-weight:500; }
     .powered-footer img.brandworks { height:150px; width:auto; display:block; }
   </style>
@@ -72,7 +85,7 @@
     </div>
   </div>
 
-  <!-- Dynamic title + loader -->
+  <!-- Dynamic title + robust loader with cache-busting and transparent iframes -->
   <script>
   (function setTitle() {
     const params = new URLSearchParams(location.search);
@@ -80,8 +93,10 @@
     const h1 = document.getElementById('dynamicTitle');
     if (!h1) return;
 
-    if (fromQuery) { const t = decodeURIComponent(fromQuery); h1.textContent = t; document.title = t; return; }
-
+    if (fromQuery) {
+      const t = decodeURIComponent(fromQuery);
+      h1.textContent = t; document.title = t; return;
+    }
     const parts = location.pathname.split('/').filter(Boolean);
     let repo = '';
     if (location.hostname.endsWith('.github.io')) repo = parts[0] || '';
@@ -95,18 +110,24 @@
     }
   })();
 
+  // Agreed order; separators only on the second item in each pair (and 320×50)
   const UNITS = [
     { dir:'1280x418', w:1280, h:418, label:'1280×418', sep:false },
     { dir:'1280x100', w:1280, h:100, label:'1280×100', sep:true  },
+
     { dir:'970x250',  w:970,  h:250, label:'970×250',  sep:false },
     { dir:'970x66',   w:970,  h:66,  label:'970×66',   sep:true  },
+
     { dir:'728x250',  w:728,  h:250, label:'728×250',  sep:false },
     { dir:'728x90',   w:728,  h:90,  label:'728×90',   sep:true  },
+
     { dir:'320x250',  w:320,  h:250, label:'320×250',  sep:false },
     { dir:'320x50',   w:320,  h:50,  label:'320×50',   sep:true  },
+
     { dir:'300x250',  w:300,  h:250, label:'300×250',  sep:false }
   ];
 
+  // Strict acceptable filenames inside each size folder (avoid stray index.html)
   function candidateFiles(dir) {
     return [
       `uaps/${dir}/${dir}.html`,
@@ -116,7 +137,10 @@
 
   async function pickFirstExisting(urls) {
     for (const url of urls) {
-      try { const r = await fetch(url, { method:'HEAD', cache:'no-store' }); if (r.ok) return url; } catch {}
+      try {
+        const r = await fetch(url, { method:'HEAD', cache:'no-store' });
+        if (r.ok) return url;
+      } catch {}
     }
     return null;
   }
@@ -133,32 +157,35 @@
     const root = document.getElementById('units');
     const parts = location.pathname.split('/').filter(Boolean);
     const repoKey = (location.hostname.endsWith('.github.io') ? (parts[0]||'') : (parts[1]||parts[0]||''));
-    const v = `${repoKey}-${Date.now()}`;
+    const v = `${repoKey}-${Date.now()}`; // cache-buster per load
 
     for (const u of UNITS) {
       const stack = document.createElement('div');
       stack.className = 'stack';
+
       const card = document.createElement('div');
       card.className = 'card';
 
+      // Resolve actual file
       const srcBase = await pickFirstExisting(candidateFiles(u.dir));
-      const iframe = document.createElement('iframe');
-      iframe.width = u.w; iframe.height = u.h; iframe.scrolling = 'no';
 
-      if (srcBase) {
-        try {
-          const res = await fetch(srcBase, { cache:'no-store' });
-          const html = await res.text();
-          const base = `<base href="${srcBase}?v=${v}">`;
-          iframe.srcdoc = `${base}\n${html}`;
-        } catch { iframe.src = `${srcBase}?v=${v}`; }
-      }
+      // Transparent iframe + direct src with cache-buster (lets creative define its own bg)
+      const iframe = document.createElement('iframe');
+      iframe.width = u.w;
+      iframe.height = u.h;
+      iframe.scrolling = 'no';
+      iframe.style.background = 'transparent';
+      iframe.setAttribute('allowtransparency', 'true');
+      if (srcBase) iframe.src = `${srcBase}?v=${v}`;
       card.appendChild(iframe);
 
+      // Open button
       const openRow = document.createElement('div');
       openRow.className = `open-row ${widthClass(u.w)}`;
       const a = document.createElement('a');
-      a.className = 'btn'; a.target = '_blank'; a.rel = 'noopener';
+      a.className = 'btn';
+      a.target = '_blank';
+      a.rel = 'noopener';
       a.textContent = `Open ${u.label}`;
       a.href = `${(srcBase || candidateFiles(u.dir)[0])}?v=${v}`;
       openRow.appendChild(a);
@@ -166,6 +193,7 @@
 
       stack.appendChild(card);
 
+      // Separator only under the smaller unit in each pair
       if (u.sep) {
         const sep = document.createElement('div');
         sep.className = `sep ${widthClass(u.w)}`;
