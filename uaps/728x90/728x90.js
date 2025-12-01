@@ -25,16 +25,16 @@ lib.ssMetadata = [];
 
 
 
-(lib._1280x100 = function() {
-	this.initialize(img._1280x100);
-}).prototype = p = new cjs.Bitmap();
-p.nominalBounds = new cjs.Rectangle(0,0,1280,100);
-
-
 (lib.EndorsedbyCourtneyCroninESPNReporter = function() {
 	this.initialize(img.EndorsedbyCourtneyCroninESPNReporter);
 }).prototype = p = new cjs.Bitmap();
 p.nominalBounds = new cjs.Rectangle(0,0,312,47);
+
+
+(lib.gold = function() {
+	this.initialize(img.gold);
+}).prototype = p = new cjs.Bitmap();
+p.nominalBounds = new cjs.Rectangle(0,0,1280,418);
 
 
 (lib.RogersandHolland_0000s_0000_9cdb952fa9a54dd189692d165925a3be = function() {
@@ -205,15 +205,15 @@ if (reversed == null) { reversed = false; }
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_6},{t:this.instance_5},{t:this.instance_4}]}).wait(240));
 
 	// Layer_6
-	this.instance_7 = new lib._1280x100();
-	this.instance_7.setTransform(-420,0);
+	this.instance_7 = new lib.gold();
+	this.instance_7.setTransform(-4,-60,0.5773,0.5774);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_7).wait(240));
 
 	this._renderFirstFrame();
 
 }).prototype = p = new lib.AnMovieClip();
-p.nominalBounds = new cjs.Rectangle(-56,45,1153.2,55);
+p.nominalBounds = new cjs.Rectangle(235,-15,862.2,196.4);
 // library properties:
 lib.properties = {
 	id: '06F1D1F36AC54C22982C70DBB030A240',
@@ -223,8 +223,8 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/_1280x100.jpg", id:"_1280x100"},
 		{src:"images/EndorsedbyCourtneyCroninESPNReporter.png", id:"EndorsedbyCourtneyCroninESPNReporter"},
+		{src:"images/gold.jpg", id:"gold"},
 		{src:"images/RogersandHolland_0000s_0000_9cdb952fa9a54dd189692d165925a3be.png", id:"RogersandHolland_0000s_0000_9cdb952fa9a54dd189692d165925a3be"},
 		{src:"images/RogersandHolland_0000s_0000s_0000_ShopNow.png", id:"RogersandHolland_0000s_0000s_0000_ShopNow"},
 		{src:"images/RogersandHolland_0000s_0000s_0001_Rectangle1.png", id:"RogersandHolland_0000s_0000s_0001_Rectangle1"},
