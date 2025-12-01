@@ -25,8 +25,8 @@ lib.ssMetadata = [];
 
 
 
-(lib._1280x418V2 = function() {
-	this.initialize(img._1280x418V2);
+(lib.gold = function() {
+	this.initialize(img.gold);
 }).prototype = p = new cjs.Bitmap();
 p.nominalBounds = new cjs.Rectangle(0,0,1280,418);
 
@@ -257,7 +257,7 @@ if (reversed == null) { reversed = false; }
 	this.timeline.addTween(cjs.Tween.get(this.instance_7).to({y:209,alpha:1},20,cjs.Ease.cubicOut).wait(220));
 
 	// Layer_1
-	this.instance_8 = new lib._1280x418V2();
+	this.instance_8 = new lib.gold();
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_8).wait(240));
 
@@ -274,7 +274,7 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/_1280x418V2.jpg", id:"_1280x418V2"},
+		{src:"images/gold.jpg", id:"gold"},
 		{src:"images/RogersandHolland_0000s_0000s_0000_ShopNow.png", id:"RogersandHolland_0000s_0000s_0000_ShopNow"},
 		{src:"images/RogersandHolland_0000s_0000s_0001_Rectangle1.png", id:"RogersandHolland_0000s_0000s_0001_Rectangle1"},
 		{src:"images/RogersandHolland_0000s_0001_Rectangle2.png", id:"RogersandHolland_0000s_0001_Rectangle2"},
